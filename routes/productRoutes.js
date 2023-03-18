@@ -14,6 +14,21 @@ productRoutes.get("/", async (req, res) => {
     });
   }
 });
+productRoutes.get("/:id", async (req, res) => {
+  try {
+    const allProduct = await Product.findById({ _id: req.params.id });
+    res.status(200).json({
+      status: "Successfull",
+      products: allProduct,
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: "Failed",
+      message: error,
+    });
+  }
+});
+
 productRoutes.post("/add", async (req, res) => {
   try {
     const newProduct = await Product.create(req.body);
